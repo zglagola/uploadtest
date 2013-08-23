@@ -2,7 +2,6 @@ var passport = require('passport')
  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
  , https = require('https')
  , fs = require('fs')
- , querystring = require('querystring')
  , youtube = require('youtube')
  , express = require('express')
  , app = express();
@@ -14,7 +13,8 @@ var client_id = '679696381032-qog5ao279ebalevfss3pe1n84tkef2i1.apps.googleuserco
 var options = {
 	key : fs.readFileSync('./ssl/zach-key.pem'),
 	cert : fs.readFileSync('./ssl/zach-cert.pem')
-}
+};
+
 var code;
 
 passport.use(new GoogleStrategy(
@@ -62,11 +62,11 @@ passport.deserializeUser(function(id, done)
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/callback', function(req, res)
 	{
-		var code = req.url.split('=')[1];
-		res.redirect('/upload');
+		code = req.url.split('=')[1];
+		res.redirect('/getTokens');
 	}
 );
-app.get('/upload', function(req, res)
+app.get('/getTokens', function(req, res)
 	{
 		youtube.setCode(code);
 		var video = youtube.createUpload('./video/patrick_bull.mp4')
