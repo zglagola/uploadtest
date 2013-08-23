@@ -1,0 +1,15 @@
+{
+  "name": "daredvl",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node upload.js"
+  },
+  "dependencies": {
+    "express": "*"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
+}
